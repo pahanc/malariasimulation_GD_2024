@@ -12,6 +12,8 @@ AdultMosquitoModel::AdultMosquitoModel(
     AquaticMosquitoModel growth_model,
     double mu,
     double tau,
+    std::vector<double> mosq_suppression,
+    std::vector<double> mosq_seasonality,
     double incubating,
     double foim
     ) : growth_model(growth_model), mu(mu), tau(tau), foim(foim)
@@ -36,9 +38,12 @@ integration_function_t create_eqs(AdultMosquitoModel& model) {
 
         //run the adult ode
         auto incubation_survival = exp(-model.mu * model.tau);
+        
+        int t_day;
+        t_day = t;
 
         dxdt[get_idx(AdultState::S)] =
-            .5 * x[get_idx(AquaticState::P)] / model.growth_model.dp //growth to adult female
+            .5 * model.mosq_suppression[t_day] * model.mosq_seasonality[t_day] *x[get_idx(AquaticState::P)]  / model.growth_model.dp //growth to adult female
             - x[get_idx(AdultState::S)] * model.foim //infections
             - x[get_idx(AdultState::S)] * model.mu; //deaths   
 
@@ -57,6 +62,8 @@ Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(
     Rcpp::XPtr<AquaticMosquitoModel> growth_model,
     double mu,
     double tau,
+    std::vector<double> mosq_suppression,
+    std::vector<double> mosq_seasonality,
     double susceptible,
     double foim
     ) {
@@ -64,6 +71,8 @@ Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(
         *growth_model,
         mu,
         tau,
+        mosq_suppression,
+        mosq_seasonality,
         susceptible,
         foim
     );
@@ -75,6 +84,8 @@ void adult_mosquito_model_update(
     Rcpp::XPtr<AdultMosquitoModel> model,
     double mu,
     double foim,
+    std::vector<double> mosq_suppression,
+    std::vector<double> mosq_seasonality,
     double susceptible,
     double f
     ) {
@@ -82,6 +93,8 @@ void adult_mosquito_model_update(
     model->foim = foim;
     model->growth_model.f = f;
     model->growth_model.mum = mu;
+    model->mosq_suppression = mosq_suppression;
+    model->mosq_seasonality = mosq_seasonality;
     model->lagged_incubating.push(susceptible * foim);
     if (model->lagged_incubating.size() > 0) {
         model->lagged_incubating.pop();

@@ -224,8 +224,86 @@
 #' rates; default = TRUE
 #'
 #' @export
-get_parameters <- function(overrides = list()) {
-  parameters <- list(
+get_parameters <- function(overrides = list(),square_number=square_number,run_number=run_number, supp_gam=supp_gam, supp_arab=supp_arab, supp_fun=supp_fun) {
+  #Read in files containing time series of daily vector population suppression values:
+  
+  #An. gambiae/coluzzii
+  
+  supp_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 stoch/mosq_supp_het_stronger_gamb_PBO",square_number,"_",run_number,".csv",sep="")
+  mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_gamb)<-NULL
+  if (supp_gam){
+    mosq_suppression_gamb<-as.vector(mosq_suppression_gamb)
+  } else{
+    #No Drive:
+    mosq_suppression_gamb<-rep(1,length(mosq_suppression_gamb))
+  }
+  
+  #An. arabiensis
+  supp_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 stoch/mosq_supp_het_stronger_arab_PBO",square_number,"_",run_number,".csv",sep="")
+  mosq_suppression_arab<-unlist(read.csv(supp_filename_arab,header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_arab)<-NULL
+  if (supp_arab){
+    mosq_suppression_arab<-as.vector(mosq_suppression_arab)
+  } else{
+    #No Drive:
+    mosq_suppression_arab<-rep(1,length(mosq_suppression_arab))
+  }
+  
+  #An. funestus
+  supp_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 stoch/mosq_supp_het_stronger_fun_PBO",square_number,"_",run_number,".csv",sep="")
+  mosq_suppression_fun<-unlist(read.csv(supp_filename_fun,header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_fun)<-NULL
+  if (supp_fun){
+    mosq_suppression_fun<-as.vector(mosq_suppression_fun)
+  } else{
+    #No Drive:
+    mosq_suppression_fun<-rep(1,length(mosq_suppression_fun))
+  }
+  
+  #Non-target vector species
+  mosq_suppression_new<-rep(1,length(mosq_suppression_arab))
+  
+  mosq_supp_lst<-list()
+  mosq_supp_lst[[1]]<-mosq_suppression_gamb
+  mosq_supp_lst[[2]]<-mosq_suppression_arab
+  mosq_supp_lst[[3]]<-mosq_suppression_fun
+  mosq_supp_lst[[4]]<-mosq_suppression_new
+  
+  #Read in files containing time series of daily relative adult mosquito emergence values:
+  
+  #An. gambiae/coluzzii
+  seas_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_gamb",square_number,"_",run_number,".csv",sep = "")
+  mosq_seasonality_gamb<-unlist(read.csv(seas_filename_gamb,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_gamb)<-NULL
+  mosq_seasonality_gamb<-as.vector(mosq_seasonality_gamb)
+  
+  #An. arabiensis
+  seas_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_arab",square_number,"_",run_number,".csv",sep = "")
+  mosq_seasonality_arab<-unlist(read.csv(seas_filename_arab,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_arab)<-NULL
+  mosq_seasonality_arab<-as.vector(mosq_seasonality_arab)
+  
+  #An. funestus
+  seas_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_fun",square_number,"_",run_number,".csv",sep = "")
+  mosq_seasonality_fun<-unlist(read.csv(seas_filename_fun,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_fun)<-NULL
+  mosq_seasonality_fun<-as.vector(mosq_seasonality_fun)
+  
+  #Non-target vector species
+  seas_filename_new<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_arab",square_number,"_",run_number,".csv",sep = "")
+  mosq_seasonality_new<-unlist(read.csv(seas_filename_new,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_new)<-NULL
+  mosq_seasonality_new<-as.vector(mosq_seasonality_new)
+  
+  mosq_seas_lst<-list()
+  mosq_seas_lst[[1]]<-mosq_seasonality_gamb
+  mosq_seas_lst[[2]]<-mosq_seasonality_arab
+  mosq_seas_lst[[3]]<-mosq_seasonality_fun
+  mosq_seas_lst[[4]]<-mosq_seasonality_new
+  
+  
+    parameters <- list(
     dd    = 5,
     dt    = 5,
     da    = 195,

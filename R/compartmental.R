@@ -54,6 +54,8 @@ parameterise_mosquito_models <- function(parameters, timesteps) {
             growth_model,
             parameters$mum[[i]],
             parameters$dem,
+            parameters$mosq_suppression[[i]],
+            parameters$mosq_seasonality[[i]],
             susceptible * parameters$init_foim,
             parameters$init_foim
           )
