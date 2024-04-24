@@ -274,25 +274,25 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   #Read in files containing time series of daily relative adult mosquito emergence values:
   
   #An. gambiae/coluzzii
-  seas_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_gamb",square_number,"_",run_number,".csv",sep = "")
+  seas_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Emerge/mosq_seasonality_gamb",square_number,"_",run_number,".csv",sep = "")
   mosq_seasonality_gamb<-unlist(read.csv(seas_filename_gamb,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality_gamb)<-NULL
   mosq_seasonality_gamb<-as.vector(mosq_seasonality_gamb)
   
   #An. arabiensis
-  seas_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_arab",square_number,"_",run_number,".csv",sep = "")
+  seas_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Emerge/mosq_seasonality_arab",square_number,"_",run_number,".csv",sep = "")
   mosq_seasonality_arab<-unlist(read.csv(seas_filename_arab,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality_arab)<-NULL
   mosq_seasonality_arab<-as.vector(mosq_seasonality_arab)
   
   #An. funestus
-  seas_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_fun",square_number,"_",run_number,".csv",sep = "")
-  mosq_seasonality_fun<-unlist(read.csv(seas_filename_fun,header=F,colClasses="numeric"))
-  dimnames(mosq_seasonality_fun)<-NULL
-  mosq_seasonality_fun<-as.vector(mosq_seasonality_fun)
+  #seas_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_fun",square_number,"_",run_number,".csv",sep = "")
+  #mosq_seasonality_fun<-unlist(read.csv(seas_filename_fun,header=F,colClasses="numeric"))
+  #dimnames(mosq_seasonality_fun)<-NULL
+  mosq_seasonality_fun<-as.vector(mosq_seasonality_arab)#NO FUNESTUS IN SOUROU
   
   #Non-target vector species
-  seas_filename_new<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_arab",square_number,"_",run_number,".csv",sep = "")
+  seas_filename_new<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Emerge/mosq_seasonality_arab",square_number,"_",run_number,".csv",sep = "")
   mosq_seasonality_new<-unlist(read.csv(seas_filename_new,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality_new)<-NULL
   mosq_seasonality_new<-as.vector(mosq_seasonality_new)
