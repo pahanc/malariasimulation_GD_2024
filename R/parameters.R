@@ -229,7 +229,7 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   
   #An. gambiae/coluzzii
   
-  supp_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 stoch/mosq_supp_het_stronger_gamb_PBO",square_number,"_",run_number,".csv",sep="")
+  supp_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Suppress/mosq_supp_gamb",square_number,"_",run_number,".csv",sep="")
   mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))
   dimnames(mosq_suppression_gamb)<-NULL
   if (supp_gam){
@@ -240,7 +240,7 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   }
   
   #An. arabiensis
-  supp_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 stoch/mosq_supp_het_stronger_arab_PBO",square_number,"_",run_number,".csv",sep="")
+  supp_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Suppress/mosq_supp_arab",square_number,"_",run_number,".csv",sep="")
   mosq_suppression_arab<-unlist(read.csv(supp_filename_arab,header=F,colClasses="numeric"))
   dimnames(mosq_suppression_arab)<-NULL
   if (supp_arab){
@@ -251,9 +251,9 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   }
   
   #An. funestus
-  supp_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 stoch/mosq_supp_het_stronger_fun_PBO",square_number,"_",run_number,".csv",sep="")
-  mosq_suppression_fun<-unlist(read.csv(supp_filename_fun,header=F,colClasses="numeric"))
-  dimnames(mosq_suppression_fun)<-NULL
+  #supp_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 stoch/mosq_supp_het_stronger_fun_PBO",square_number,"_",run_number,".csv",sep="")
+  #mosq_suppression_fun<-unlist(read.csv(supp_filename_fun,header=F,colClasses="numeric"))
+  #dimnames(mosq_suppression_fun)<-NULL
   if (supp_fun){
     mosq_suppression_fun<-as.vector(mosq_suppression_fun)
   } else{
