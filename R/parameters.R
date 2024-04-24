@@ -254,12 +254,13 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   #supp_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 stoch/mosq_supp_het_stronger_fun_PBO",square_number,"_",run_number,".csv",sep="")
   #mosq_suppression_fun<-unlist(read.csv(supp_filename_fun,header=F,colClasses="numeric"))
   #dimnames(mosq_suppression_fun)<-NULL
-  if (supp_fun){
-    mosq_suppression_fun<-as.vector(mosq_suppression_fun)
-  } else{
+  #if (supp_fun){
+  #  mosq_suppression_fun<-as.vector(mosq_suppression_fun)
+  #} else{
     #No Drive:
-    mosq_suppression_fun<-rep(1,length(mosq_suppression_fun))
-  }
+  #  mosq_suppression_fun<-rep(1,length(mosq_suppression_fun))
+  #}
+  mosq_suppression_fun<-rep(1,length(mosq_suppression_arab))
   
   #Non-target vector species
   mosq_suppression_new<-rep(1,length(mosq_suppression_arab))
