@@ -231,7 +231,7 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
   
   #An. gambiae/coluzzii
   
-  supp_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Suppress/",supp_gam_file,sep="")
+  supp_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Suppress/",supp_gam_filename,sep="")
   mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))
   dimnames(mosq_suppression_gamb)<-NULL
   if (supp_gam){
@@ -242,7 +242,7 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
   }
   
   #An. arabiensis
-  supp_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Suppress/",supp_arab_file,sep="")
+  supp_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Suppress/",supp_arab_filename,sep="")
   mosq_suppression_arab<-unlist(read.csv(supp_filename_arab,header=F,colClasses="numeric"))
   dimnames(mosq_suppression_arab)<-NULL
   if (supp_arab){
