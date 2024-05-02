@@ -225,7 +225,8 @@
 #'
 #' @export
 get_parameters <- function(overrides = list(),square_number=square_number, supp_gam=supp_gam, supp_arab=supp_arab, supp_fun=supp_fun,
-                           ) {
+                           supp_gam_filename=supp_gam_filename, supp_arab_filename=supp_arab_filename,
+                           emerge_gam_filename=emerge_gam_filename,emerge_arab_filename=emerge_arab_filename) {
   #Read in files containing time series of daily vector population suppression values:
   
   #An. gambiae/coluzzii
@@ -281,7 +282,7 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
   mosq_seasonality_gamb<-as.vector(mosq_seasonality_gamb)
   
   #An. arabiensis
-  seas_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Emerge/",emerge_arab_filenam,sep = "")
+  seas_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Emerge/",emerge_arab_filename,sep = "")
   mosq_seasonality_arab<-unlist(read.csv(seas_filename_arab,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality_arab)<-NULL
   mosq_seasonality_arab<-as.vector(mosq_seasonality_arab)
