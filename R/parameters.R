@@ -267,6 +267,17 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
   #Non-target vector species
   mosq_suppression_new<-rep(1,length(mosq_suppression_arab))
   
+  
+  #Turn them into timeseries objects
+  supp_g_tseries <- create_timeseries(size = length(mosq_suppression_gamb), mosq_suppression_gamb[1])
+    for(j in 1:length(length(mosq_suppression_gamb))){
+      timeseries_push(
+        supp_g_tseries,
+        mosq_suppression_gamb[j],
+        j
+      )
+    }
+  
   mosq_supp_lst<-list()
   mosq_supp_lst[[1]]<-mosq_suppression_gamb
   mosq_supp_lst[[2]]<-mosq_suppression_arab
