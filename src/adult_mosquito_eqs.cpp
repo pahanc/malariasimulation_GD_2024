@@ -12,8 +12,8 @@ AdultMosquitoModel::AdultMosquitoModel(
     AquaticMosquitoModel growth_model,
     double mu,
     double tau,
-    std::vector<double> mosq_suppression,
-    std::vector<double> mosq_seasonality,
+    Rcpp::XPtr<Timeseries> mosq_suppression,
+    Rcpp::XPtr<Timeseries> mosq_seasonality,
     double incubating,
     double foim
     ) : growth_model(growth_model), mu(mu), tau(tau), foim(foim)
@@ -43,7 +43,7 @@ integration_function_t create_eqs(AdultMosquitoModel& model) {
         t_day = t;
 
         dxdt[get_idx(AdultState::S)] =
-            .5 * model.mosq_suppression[t_day] * model.mosq_seasonality[t_day] *x[get_idx(AquaticState::P)]  / model.growth_model.dp //growth to adult female
+            .5 * model.mosq_suppression->at(t,true) * model.mosq_seasonality->at(t,true) *x[get_idx(AquaticState::P)]  / model.growth_model.dp //growth to adult female
             - x[get_idx(AdultState::S)] * model.foim //infections
             - x[get_idx(AdultState::S)] * model.mu; //deaths   
 
@@ -62,8 +62,8 @@ Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(
     Rcpp::XPtr<AquaticMosquitoModel> growth_model,
     double mu,
     double tau,
-    std::vector<double> mosq_suppression,
-    std::vector<double> mosq_seasonality,
+    Rcpp::XPtr<Timeseries> > mosq_suppression,
+    Rcpp::XPtr<Timeseries>  mosq_seasonality,
     double susceptible,
     double foim
     ) {
@@ -84,8 +84,8 @@ void adult_mosquito_model_update(
     Rcpp::XPtr<AdultMosquitoModel> model,
     double mu,
     double foim,
-    std::vector<double> mosq_suppression,
-    std::vector<double> mosq_seasonality,
+    Rcpp::XPtr<Timeseries> mosq_suppression,
+    Rcpp::XPtr<Timeseries> mosq_seasonality,
     double susceptible,
     double f
     ) {

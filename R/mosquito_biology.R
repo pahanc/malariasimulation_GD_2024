@@ -225,7 +225,7 @@ create_mosquito_emergence_process <- function(
         solver_get_states(solver)[[ODE_INDICES[['P']]]]
       }
     )
-    n <- sum(p_counts) * rate * mosq_suppression[[species]][t] * mosq_seasonality[[species]][t]
+    n <- sum(p_counts) * rate * timeseries_at(mosq_suppression[[species]],t,true) * timeseries_at(mosq_seasonality[[species]],t,true)
     available <- state$get_size_of('NonExistent')
     if (n > available) {
       stop(paste0(
@@ -239,7 +239,7 @@ create_mosquito_emergence_process <- function(
     non_existent <- state$get_index_of('NonExistent')
     latest <- 1
     for (i in seq_along(species_names)) {
-      to_hatch <- p_counts[[i]] * rate* mosq_suppression[[i]][t] * mosq_seasonality[[i]][t]
+      to_hatch <- p_counts[[i]] * rate* timeseries_at(mosq_suppression[[i]],t,true) * timeseries_at(mosq_seasonality[[i]],t,true)
       hatched <- bitset_at(non_existent, seq(latest, latest + to_hatch))
       state$queue_update('Sm', hatched)
       species$queue_update(species_names[[i]], hatched)
