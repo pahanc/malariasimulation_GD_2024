@@ -62,8 +62,8 @@ Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(
     Rcpp::XPtr<AquaticMosquitoModel> growth_model,
     double mu,
     double tau,
-    Rcpp::XPtr<Timeseries> > mosq_suppression,
-    Rcpp::XPtr<Timeseries>  mosq_seasonality,
+    Rcpp::XPtr<Timeseries> mosq_suppression,
+    Rcpp::XPtr<Timeseries> mosq_seasonality,
     double susceptible,
     double foim
     ) {
