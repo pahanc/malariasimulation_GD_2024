@@ -16,7 +16,7 @@ AdultMosquitoModel::AdultMosquitoModel(
     Rcpp::XPtr<Timeseries> emerge_tseries,
     double incubating,
     double foim
-    ) : growth_model(growth_model), mu(mu), tau(tau), foim(foim)
+    ) : growth_model(growth_model), mu(mu), tau(tau),supp_tseries(supp_tseries), emerge_tseries(emerge_tseries), foim(foim)
 {
     for (auto i = 0u; i < tau; ++i) {
         lagged_incubating.push(incubating);
