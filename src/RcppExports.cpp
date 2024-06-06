@@ -12,35 +12,35 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // create_adult_mosquito_model
-Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(Rcpp::XPtr<AquaticMosquitoModel> growth_model, double mu, double tau, Rcpp::XPtr<Timeseries> mosq_suppression, Rcpp::XPtr<Timeseries> mosq_seasonality,double susceptible, double foim);
-RcppExport SEXP _malariasimulation_create_adult_mosquito_model(SEXP growth_modelSEXP, SEXP muSEXP, SEXP tauSEXP,SEXP mosq_suppressionSEXP, SEXP mosq_seasonalitySEXP, SEXP susceptibleSEXP, SEXP foimSEXP) {
+Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(Rcpp::XPtr<AquaticMosquitoModel> growth_model, double mu, double tau, Rcpp::XPtr<Timeseries> supp_tseries, Rcpp::XPtr<Timeseries> emerge_tseries,double susceptible, double foim);
+RcppExport SEXP _malariasimulation_create_adult_mosquito_model(SEXP growth_modelSEXP, SEXP muSEXP, SEXP tauSEXP,SEXP supp_tseriesSEXP, SEXP emerge_tseriesSEXP, SEXP susceptibleSEXP, SEXP foimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::XPtr<AquaticMosquitoModel> >::type growth_model(growth_modelSEXP);
     Rcpp::traits::input_parameter< double >::type mu(muSEXP);
     Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
-    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type mosq_suppression(mosq_suppressionSEXP);
-    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type mosq_seasonality(mosq_seasonalitySEXP);
+    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type supp_tseries(supp_tseriesSEXP);
+    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type emerge_tseries(emerge_tseriesSEXP);
     Rcpp::traits::input_parameter< double >::type susceptible(susceptibleSEXP);
     Rcpp::traits::input_parameter< double >::type foim(foimSEXP);
-    rcpp_result_gen = Rcpp::wrap(create_adult_mosquito_model(growth_model, mu, tau,mosq_suppression, mosq_seasonality, susceptible, foim));
+    rcpp_result_gen = Rcpp::wrap(create_adult_mosquito_model(growth_model, mu, tau,supp_tseries, emerge_tseries, susceptible, foim));
     return rcpp_result_gen;
 END_RCPP
 }
 // adult_mosquito_model_update
-void adult_mosquito_model_update(Rcpp::XPtr<AdultMosquitoModel> model, double mu, double foim,Rcpp::XPtr<Timeseries> mosq_suppression, Rcpp::XPtr<Timeseries> mosq_seasonality, double susceptible, double f);
-RcppExport SEXP _malariasimulation_adult_mosquito_model_update(SEXP modelSEXP, SEXP muSEXP, SEXP foimSEXP,SEXP mosq_suppressionSEXP, SEXP mosq_seasonalitySEXP, SEXP susceptibleSEXP, SEXP fSEXP) {
+void adult_mosquito_model_update(Rcpp::XPtr<AdultMosquitoModel> model, double mu, double foim,Rcpp::XPtr<Timeseries> supp_tseries, Rcpp::XPtr<Timeseries> emerge_tseries, double susceptible, double f);
+RcppExport SEXP _malariasimulation_adult_mosquito_model_update(SEXP modelSEXP, SEXP muSEXP, SEXP foimSEXP,SEXP supp_tseriesSEXP, SEXP emerge_tseriesSEXP, SEXP susceptibleSEXP, SEXP fSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::XPtr<AdultMosquitoModel> >::type model(modelSEXP);
     Rcpp::traits::input_parameter< double >::type mu(muSEXP);
     Rcpp::traits::input_parameter< double >::type foim(foimSEXP);
-    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type mosq_suppression(mosq_suppressionSEXP);
-    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type mosq_seasonality(mosq_seasonalitySEXP);
+    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type supp_tseries(supp_tseriesSEXP);
+    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type emerge_tseries(emerge_tseriesSEXP);
     Rcpp::traits::input_parameter< double >::type susceptible(susceptibleSEXP);
     Rcpp::traits::input_parameter< double >::type f(fSEXP);
-    adult_mosquito_model_update(model, mu, foim,mosq_suppression, mosq_seasonality, susceptible, f);
+    adult_mosquito_model_update(model, mu, foim, susceptible, f);
     return R_NilValue;
 END_RCPP
 }
