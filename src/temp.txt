@@ -1,0 +1,11 @@
+aquatic_mosquito_eqs.cpp://    auto kt = model.k_timeseries->at(t, false); 
+aquatic_mosquito_eqs.cpp:  Rcpp::XPtr<Timeseries> k_timeseries,
+aquatic_mosquito_eqs.cpp:  k_timeseries(k_timeseries),
+aquatic_mosquito_eqs.cpp:    Rcpp::XPtr<Timeseries> k_timeseries,
+aquatic_mosquito_eqs.cpp:    k_timeseries,
+aquatic_mosquito_eqs.h:  Rcpp::XPtr<Timeseries> k_timeseries; //carrying capacity history
+aquatic_mosquito_eqs.h:    Rcpp::XPtr<Timeseries> k_timeseries,
+RcppExports.cpp:Rcpp::XPtr<AquaticMosquitoModel> create_aquatic_mosquito_model(double beta, double de, double mue, Rcpp::XPtr<Timeseries> k_timeseries, double gamma, double dl, double mul, double dp, double mup, size_t total_M, bool model_seasonality, double g0, std::vector<double> g, std::vector<double> h, double R_bar, double mum, double f, double rainfall_floor);
+RcppExports.cpp:RcppExport SEXP _malariasimulation_create_aquatic_mosquito_model(SEXP betaSEXP, SEXP deSEXP, SEXP mueSEXP, SEXP k_timeseriesSEXP, SEXP gammaSEXP, SEXP dlSEXP, SEXP mulSEXP, SEXP dpSEXP, SEXP mupSEXP, SEXP total_MSEXP, SEXP model_seasonalitySEXP, SEXP g0SEXP, SEXP gSEXP, SEXP hSEXP, SEXP R_barSEXP, SEXP mumSEXP, SEXP fSEXP, SEXP rainfall_floorSEXP) {
+RcppExports.cpp:    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type k_timeseries(k_timeseriesSEXP);
+RcppExports.cpp:    rcpp_result_gen = Rcpp::wrap(create_aquatic_mosquito_model(beta, de, mue, k_timeseries, gamma, dl, mul, dp, mup, total_M, model_seasonality, g0, g, h, R_bar, mum, f, rainfall_floor));

@@ -49,13 +49,33 @@ parameterise_mosquito_models <- function(parameters, timesteps) {
           parameters$init_foim,
           m
         )[ADULT_ODE_INDICES['Sm']]
+        #Turn them into timeseries objects----
+        supp_tseries <- create_timeseries(size = length(parameters$mosq_supp_lst[[i]]), parameters$mosq_supp_lst[[i]][1])
+        for(j in 1:length(parameters$mosq_supp_lst[[i]])){
+          timeseries_push(
+            supp_tseries,
+            parameters$mosq_supp_lst[[i]],
+            j
+          )
+        }
+        
+        emerge_tseries <- create_timeseries(size = length(parameters$mosq_seas_lst[[i]]), parameters$mosq_seas_lst[[i]][1])
+        for(j in 1:length(parameters$mosq_seas_lst[[i]])){
+          timeseries_push(
+            emerge_tseries,
+            parameters$mosq_seas_lst[[i]],
+            j
+          )
+        }
+        
+        #---- 
         return(
           create_adult_mosquito_model(
             growth_model,
             parameters$mum[[i]],
             parameters$dem,
-            parameters$mosq_suppression[[i]],
-            parameters$mosq_seasonality[[i]],
+            supp_tseries,
+            emerge_tseries,
             susceptible * parameters$init_foim,
             parameters$init_foim
           )

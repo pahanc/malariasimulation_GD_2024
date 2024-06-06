@@ -267,49 +267,11 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
   #Non-target vector species
   mosq_suppression_new<-rep(1,length(mosq_suppression_arab))
   
-  
-  #Turn them into timeseries objects----
-  supp_g_tseries <- create_timeseries(size = length(mosq_suppression_gamb), mosq_suppression_gamb[length(mosq_suppression_gamb)])
-    for(j in 1:length(mosq_suppression_gamb)){
-      timeseries_push(
-        supp_g_tseries,
-        mosq_suppression_gamb[j],
-        j
-      )
-    }
-  
-  supp_a_tseries <- create_timeseries(size = length(mosq_suppression_arab), mosq_suppression_arab[length(mosq_suppression_arab)])
-  for(j in 1:length(mosq_suppression_arab)){
-    timeseries_push(
-      supp_a_tseries,
-      mosq_suppression_arab[j],
-      j
-    )
-  }
-  
-  supp_f_tseries <- create_timeseries(size = length(mosq_suppression_fun), mosq_suppression_fun[length(mosq_suppression_fun)])
-  for(j in 1:length(mosq_suppression_fun)){
-    timeseries_push(
-      supp_f_tseries,
-      mosq_suppression_fun[j],
-      j
-    )
-  }
-  
-  supp_n_tseries <- create_timeseries(size = length(mosq_suppression_new), mosq_suppression_new[length(mosq_suppression_new)])
-  for(j in 1:length(mosq_suppression_new)){
-    timeseries_push(
-      supp_n_tseries,
-      mosq_suppression_new[j],
-      j
-    )
-  }
-  
   mosq_supp_lst<-list()
-  mosq_supp_lst[[1]]<-supp_g_tseries
-  mosq_supp_lst[[2]]<-supp_a_tseries
-  mosq_supp_lst[[3]]<-supp_f_tseries
-  mosq_supp_lst[[4]]<-supp_n_tseries
+  mosq_supp_lst[[1]]<-mosq_suppression_gamb
+  mosq_supp_lst[[2]]<-mosq_suppression_arab
+  mosq_supp_lst[[3]]<-mosq_suppression_fun
+  mosq_supp_lst[[4]]<-mosq_suppression_new
   
   #Read in files containing time series of daily relative adult mosquito emergence values:
   
@@ -337,48 +299,13 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
   dimnames(mosq_seasonality_new)<-NULL
   mosq_seasonality_new<-as.vector(mosq_seasonality_new)
   
-  #Turn them into timeseries objects----
-  emerge_g_tseries <- create_timeseries(size = length(mosq_seasonality_gamb), mosq_seasonality_gamb[length(mosq_seasonality_gamb)])
-  for(j in 1:length(mosq_seasonality_gamb)){
-    timeseries_push(
-      emerge_g_tseries,
-      mosq_seasonality_gamb[j],
-      j
-    )
-  }
-  
-  emerge_a_tseries <- create_timeseries(size = length(mosq_seasonality_arab), mosq_seasonality_arab[length(mosq_seasonality_arab)])
-  for(j in 1:length(mosq_seasonality_arab)){
-    timeseries_push(
-      emerge_a_tseries,
-      mosq_seasonality_arab[j],
-      j
-    )
-  }
-  
-  emerge_f_tseries <- create_timeseries(size = length(mosq_seasonality_fun), mosq_seasonality_fun[length(mosq_seasonality_fun)])
-  for(j in 1:length(mosq_seasonality_fun)){
-    timeseries_push(
-      emerge_f_tseries,
-      mosq_seasonality_fun[j],
-      j
-    )
-  }
-  
-  emerge_n_tseries <- create_timeseries(size = length(mosq_seasonality_new), mosq_seasonality_new[length(mosq_seasonality_new)])
-  for(j in 1:length(mosq_seasonality_new)){
-    timeseries_push(
-      emerge_n_tseries,
-      mosq_seasonality_new[j],
-      j
-    )
-  }
+ 
   
   mosq_seas_lst<-list()
-  mosq_seas_lst[[1]]<-emerge_g_tseries
-  mosq_seas_lst[[2]]<-emerge_a_tseries
-  mosq_seas_lst[[3]]<-emerge_f_tseries
-  mosq_seas_lst[[4]]<-emerge_n_tseries
+  mosq_seas_lst[[1]]<-mosq_seasonality_gamb
+  mosq_seas_lst[[2]]<-mosq_seasonality_arab
+  mosq_seas_lst[[3]]<-mosq_seasonality_fun
+  mosq_seas_lst[[4]]<-mosq_seasonality_new
   
   
     parameters <- list(
