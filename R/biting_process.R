@@ -192,8 +192,6 @@ simulate_bites <- function(
         models[[s_i]],
         mu,
         foim,
-        parameters$mosq_suppression[[s_i]],
-        parameters$mosq_seasonality[[s_i]],
         solver_states[[ADULT_ODE_INDICES['Sm']]],
         f
       )
