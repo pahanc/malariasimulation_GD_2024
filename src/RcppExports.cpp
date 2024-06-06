@@ -29,15 +29,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // adult_mosquito_model_update
-void adult_mosquito_model_update(Rcpp::XPtr<AdultMosquitoModel> model, double mu, double foim,Rcpp::XPtr<Timeseries> supp_tseries, Rcpp::XPtr<Timeseries> emerge_tseries, double susceptible, double f);
-RcppExport SEXP _malariasimulation_adult_mosquito_model_update(SEXP modelSEXP, SEXP muSEXP, SEXP foimSEXP,SEXP supp_tseriesSEXP, SEXP emerge_tseriesSEXP, SEXP susceptibleSEXP, SEXP fSEXP) {
+void adult_mosquito_model_update(Rcpp::XPtr<AdultMosquitoModel> model, double mu, double foim, double susceptible, double f);
+RcppExport SEXP _malariasimulation_adult_mosquito_model_update(SEXP modelSEXP, SEXP muSEXP, SEXP foimSEXP, SEXP susceptibleSEXP, SEXP fSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::XPtr<AdultMosquitoModel> >::type model(modelSEXP);
     Rcpp::traits::input_parameter< double >::type mu(muSEXP);
     Rcpp::traits::input_parameter< double >::type foim(foimSEXP);
-    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type supp_tseries(supp_tseriesSEXP);
-    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type emerge_tseries(emerge_tseriesSEXP);
     Rcpp::traits::input_parameter< double >::type susceptible(susceptibleSEXP);
     Rcpp::traits::input_parameter< double >::type f(fSEXP);
     adult_mosquito_model_update(model, mu, foim, susceptible, f);
