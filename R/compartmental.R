@@ -55,7 +55,7 @@ parameterise_mosquito_models <- function(parameters, timesteps) {
         for(j in 1:length(parameters$mosq_suppression[[i]])){
           timeseries_push(
             supp_tseries,
-            parameters$mosq_suppression[[i]],
+            parameters$mosq_suppression[[i]][j],
             j
           )
         }
@@ -64,7 +64,7 @@ parameterise_mosquito_models <- function(parameters, timesteps) {
         for(j in 1:length(parameters$mosq_seasonality[[i]])){
           timeseries_push(
             emerge_tseries,
-            parameters$mosq_seasonality[[i]],
+            parameters$mosq_seasonality[[i]][j],
             j
           )
         }
