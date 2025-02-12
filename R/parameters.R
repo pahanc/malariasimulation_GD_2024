@@ -317,9 +317,9 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
     du    = 110,
     del   = 6.64,
     dl    = 3.72,
-    dpl   = .643,
-    mup   = .249,
-    mum   = .132,
+    dpl   = 10,
+    mup   = 0,
+    mum   = .125,
     sigma_squared   = 1.67,
     n_heterogeneity_groups = 5,
     # immunity decay rates
