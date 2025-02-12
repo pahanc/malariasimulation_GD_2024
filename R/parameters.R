@@ -317,7 +317,7 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
     du    = 110,
     del   = 6.64,
     dl    = 3.72,
-    dpl   = 10,
+    dpl   = 1,
     mup   = 0,
     mum   = .125,
     sigma_squared   = 1.67,
