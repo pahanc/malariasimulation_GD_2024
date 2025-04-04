@@ -230,7 +230,7 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
   
   #An. gambiae/coluzzii
   
-  supp_filename_gamb<-paste("W:\\Seas and supp species specific/With funestus suppression/Houet suppression files Feb25/Fitness 0.65 strat/1km/",supp_gam_filename,sep="")
+  supp_filename_gamb<-paste("W:\\Seas and supp species specific/With funestus suppression/Houet suppression files Feb25/Strat/1km/",supp_gam_filename,sep="")
   mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))
   dimnames(mosq_suppression_gamb)<-NULL
   if (supp_gam){
