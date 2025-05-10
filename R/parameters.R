@@ -241,7 +241,7 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
   }
   
   #An. arabiensis
-  #supp_filename_arab<-paste("W:\\Seas and supp species specific/With funestus suppression/Houet suppression files/",supp_arab_filename,sep="")
+  #supp_filename_arab<-paste("W:\\for_hpc/Seas and supp species specific/With funestus suppression/Houet suppression files/",supp_arab_filename,sep="")
   #mosq_suppression_arab<-unlist(read.csv(supp_filename_arab,header=F,colClasses="numeric"))
   #dimnames(mosq_suppression_arab)<-NULL
   #if (supp_arab){
@@ -276,13 +276,13 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
   #Read in files containing time series of daily relative adult mosquito emergence values:
   
   #An. gambiae/coluzzii
-  seas_filename_gamb<-paste("W:\\Seas and supp species specific/With funestus suppression/Houet emergence files/",emerge_gam_filename,sep = "")
+  seas_filename_gamb<-paste("W:\\for_hpc/Seas and supp species specific/With funestus suppression/Houet emergence files/",emerge_gam_filename,sep = "")
   mosq_seasonality_gamb<-unlist(read.csv(seas_filename_gamb,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality_gamb)<-NULL
   mosq_seasonality_gamb<-as.vector(mosq_seasonality_gamb)
   
   #An. arabiensis
-  #seas_filename_arab<-paste("W:\\Seas and supp species specific/With funestus suppression/Houet emergence files/",emerge_arab_filename,sep = "")
+  #seas_filename_arab<-paste("W:\\for_hpc/Seas and supp species specific/With funestus suppression/Houet emergence files/",emerge_arab_filename,sep = "")
   #mosq_seasonality_arab<-unlist(read.csv(seas_filename_arab,header=F,colClasses="numeric"))
   #dimnames(mosq_seasonality_arab)<-NULL
   mosq_seasonality_arab<-as.vector(mosq_seasonality_gamb)
@@ -294,7 +294,7 @@ get_parameters <- function(overrides = list(),square_number=square_number, supp_
   mosq_seasonality_fun<-as.vector(mosq_seasonality_gamb)
   
   #Non-target vector species
-  #seas_filename_new<-paste("W:\\Seas and supp species specific/With funestus suppression/Houet emergence files/",emerge_arab_filename,sep = "")
+  #seas_filename_new<-paste("W:\\for_hpc/Seas and supp species specific/With funestus suppression/Houet emergence files/",emerge_arab_filename,sep = "")
   #mosq_seasonality_new<-unlist(read.csv(seas_filename_new,header=F,colClasses="numeric"))
   #dimnames(mosq_seasonality_new)<-NULL
   mosq_seasonality_new<-as.vector(mosq_seasonality_gamb)
