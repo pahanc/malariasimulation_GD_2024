@@ -24,8 +24,27 @@ malariasimulation v1.6.0"
 
 ## Usage
 
-To run this modified version of malariasimulation, files containing site specific model parameters are required. These files are located in the github repository https://github.com/pahanc/inputs-for-malariasimulation_GD_2024 . Input files generated from the mosquito metapopulation model developed in Hancock, P.A., North, A. et al. are also required.  Example input files are in the subdirectories **Mosquito timeseries** .
+To run this modified version of malariasimulation, files containing site specific model parameters are required. These files are located in the github repository https://github.com/pahanc/inputs-for-malariasimulation_GD_2024 . Input files generated from the mosquito metapopulation model developed in Hancock, P.A., North, A. et al. are also required.  Example input files are in the subdirectories **Mosquito timeseries** . File names and paths can be interpreted as follows:
+Subfolder "A" refers to trial Design A. Within folder "A" there are 63 subfolders containing mosquito suppression time series for 9 values of the fitness parameter 'omega' and 7 values of the dispersal parameter 'rho'. The first digit of the folder name denotes the fitness parameter:
+1: \omega = 1.0
+2: \omega = 0.9
+3: \omega = 0.8
+4: \omega = 0.7
+5: \omega = 0.6
+6: \omega = 0.5
+7: \omega = 0.4
+8: \omega = 0.3
+9: \omega = 0.2
+The second digit of the folder name denotes the dispersal rate:
+1: \rho = 0.001
+2: \rho = 0.00224
+3: \rho = 0.005
+4: \rho = 0.0112
+5: \rho = 0.025
+6: \rho = 0.056
+7: \rho = 0.125
 
+So, for example, folder 5200 contains mosquito suppression timeseries for \omega=0.6 and \rho=0.0024
 
 To run the modified malariasimulation model with the default parameters, you
 can execute the function "run_site" (in run_site_2026.R in https://github.com/pahanc/inputs-for-malariasimulation_GD_2024) :
