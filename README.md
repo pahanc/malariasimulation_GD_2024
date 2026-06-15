@@ -28,7 +28,7 @@ To run this modified version of malariasimulation, files containing site specifi
 
 
 To run the modified malariasimulation model with the default parameters, you
-can execute the function "run_site" :
+can execute the function "run_site" (in run_site_2026.R in https://github.com/pahanc/inputs-for-malariasimulation_GD_2024) :
 
 ```R
 output<-run_site(total_M=total_M,human_population=human_population,
