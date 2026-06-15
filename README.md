@@ -60,7 +60,7 @@ output<-run_site(total_M=total_M,human_population=human_population,
 The output daily malaria prevalence values are given by:
 
 ```R
-plot(output,type='l',xlab="Day",ylab="Prevalence")```
+plot(output,type='l',xlab="Day",ylab="Prevalence")
 ```
 
 ## License
