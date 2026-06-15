@@ -48,7 +48,7 @@ where
 
 For example, 
 ```R
-total_M=100000;human_population=1500;supp_gam=TRUE;supp_gam_filename="24/1100/mosq_supp_gamb_1100_5.csv"; 
+total_M=100000;human_population=1500;supp_gam=TRUE;supp_gam_filename="24/1100/mosq_supp_gamb_1100_1.csv"; 
 emerge_gam_filename="Emerge_gam_Feb26.csv"; ntsp_prop=0
 
 output<-run_site(total_M=total_M,human_population=human_population,
