@@ -3,9 +3,7 @@
 
 # malariasimulation
 
-Imperial College London's next malaria simulation. The main goals are make an
-extensible, maintainable and fast simulation to evaluate and report on malaria
-intervention strategies.
+This is a modified version of Imperial College London's malariasimulation model to import a time series of the daily relative emergence of adult females generated from a separate mosquito metapopulation model, as described in Hancock, P.A, North, A et al.. The modifications were made to malariasimulation version 1.6.0 which is available here: https://github.com/mrc-ide/malariasimulation/releases/tag/v1.6.0.
 
 The model is defined in this package, whereas the simulation is executed using
 the [individual](https://github.com/mrc-ide/individual) package.
@@ -14,80 +12,55 @@ the [individual](https://github.com/mrc-ide/individual) package.
 
 Please note, malariasimulation is only compatible with R >= 4.0.0
 
-You can install the binary package on Windows and Mac using the following
-command:
+The package can be installed from github using the "remotes" library. Note, this method requires RBuildTools
 
-```R
-# Enable this universe
-options(repos = c(
-    mrcide = 'https://mrc-ide.r-universe.dev',
-    CRAN = 'https://cloud.r-project.org'))
-
-# Install some packages
-install.packages('malariasimulation')
-```
-
-The package can also be installed from github using the "remotes" library. Note, this
-method requires [RBuildTools](https://cran.r-project.org/bin/windows/Rtools/)
-
-```R
 library('remotes')
-install_github('mrc-ide/malariasimulation')
-```
+install_github('pahanc/malariasimulation_import_mosq')
+The following R packages are required:
 
-For development it is most convenient to run the code from source. You can
-install the dependencies in RStudio by opening the project and selecting "Build" >
-"Install and Restart"
-
-Command line users can execute:
-
-```R
-library('remotes')
-install_deps('.', dependencies = TRUE)
-```
-
-Docker users can achieve the same with one line
-
-```bash
-docker build . -f docker/Dockerfile.dev -t [your image name]
-```
+individual v0.1.17
+malariaEquilibrium v1.0.1
+malariasimulation v1.6.0"
 
 ## Usage
 
-To run the malaria simulation with the default parameters for 100 timesteps, you
-can execute the following code:
+To run this modified version of malariasimulation, files containing site specific model parameters are required. These files are located in the github repository https://github.com/pahanc/inputs-for-malariasimulation_GD_2024 . Input files generated from the mosquito metapopulation model developed in Hancock, P.A., North, A. et al. are also required.  Example input files are in the subdirectories **Mosquito timeseries** .
+
+
+To run the modified malariasimulation model with the default parameters, you
+can execute the function "run_site" :
 
 ```R
-library('malariasimulation')
+output<-run_site(total_M=total_M,human_population=human_population,
+                 supp_gam=supp_gam,
+                 supp_gam_filename=supp_gam_filename,
+                 emerge_gam_filename=emerge_gam_filename,ntsp_prop=ntsp_prop)```
+where
+*  **total_M** is the estimated maximum abundance of the total vector population (including all species) over the simulation period (see Hancock, P. A., North, A. et al.).
+*   **human_population** is the number of humans being modelled in a settlement.
+*   **supp_gam** is boolean indicating whether gene drive releases in An. gambiae + An. colluzzii occur
+*   **supp_gam_filename** is the path to the file containing the mosquito suppression timeseries predicted using the spatial metapopulation model
+(note that the root directory will need to be changed in the file parameters.R)
+*   **emerge_gam_filename** is the path to the file containing the timeseries of normalised daily mosquito emergence
+(note that the root directory will need to be changed in the file parameters.R)
+*   **ntsp_prop** is the proportion of the mosquito population comprised of vector species that are not gene drive targets
 
-output <- run_simulation(100)
+For example, 
+```R
+total_M=100000;human_population=1500;supp_gam=TRUE;supp_gam_filename="24/1100/mosq_supp_gamb_1100_5.csv"; 
+emerge_gam_filename="Emerge_gam_Feb26.csv"; ntsp_prop=0
+
+output<-run_site(total_M=total_M,human_population=human_population,
+                 supp_gam=supp_gam,
+                 supp_gam_filename=supp_gam_filename,
+                 emerge_gam_filename=emerge_gam_filename,ntsp_prop=ntsp_prop)
 ```
 
-Please see [vignettes](https://mrc-ide.github.io/malariasimulation/articles/Model.html) for more detailed use.
+The output daily malaria prevalence values are given by:
 
-## Code organisation
-
-*model.R* - is the entry point for the model. It creates the different
-components and passes them to the `individual` package for simulation.
-
-*variables.R* - contains the specific variables we track for each individual.
-
-*processes.R* - defines the changes in individuals over time. It collects
-process functions from "infection.R", "mosquito_emergence.R" and "mortality.R"
-
-*tests* - are divided into unit and integration tests. Integration tests are
-strongly recommended for large process functions and unit tests for model
-calculations.
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to
-discuss what you would like to change.
-
-Please make sure to update tests and documentation as appropriate.
-
-Code reviews will be carried out in-line with RESIDE-IC's [review
-process](https://reside-ic.github.io/articles/pull-requests/)
+```R
+plot(output,type='l',xlab="Day",ylab="Prevalence")```
+```
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
