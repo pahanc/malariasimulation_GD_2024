@@ -48,8 +48,10 @@ where
 
 For example, 
 ```R
-total_M=100000;human_population=1500;supp_gam=TRUE;supp_gam_filename="24/1100/mosq_supp_gamb_1100_1.csv"; 
-emerge_gam_filename="Emerge_gam_Feb26.csv"; ntsp_prop=0
+total_M=100000;human_population=1500;supp_gam=TRUE;
+supp_gam_filename="inputs-for-malariasimulation_GD_2024/input files/Mosquito timeseries/A/1100/mosq_supp_gamb_1100_1.csv"; 
+emerge_gam_filename="inputs-for-malariasimulation_GD_2024/input files/Mosquito timeseries/Emerge_gam_Feb26.csv";
+ntsp_prop=0
 
 output<-run_site(total_M=total_M,human_population=human_population,
                  supp_gam=supp_gam,
