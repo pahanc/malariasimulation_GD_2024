@@ -34,7 +34,8 @@ can execute the function "run_site" :
 output<-run_site(total_M=total_M,human_population=human_population,
                  supp_gam=supp_gam,
                  supp_gam_filename=supp_gam_filename,
-                 emerge_gam_filename=emerge_gam_filename,ntsp_prop=ntsp_prop)```
+                 emerge_gam_filename=emerge_gam_filename,ntsp_prop=ntsp_prop)
+```
 where
 *  **total_M** is the estimated maximum abundance of the total vector population (including all species) over the simulation period (see Hancock, P. A., North, A. et al.).
 *   **human_population** is the number of humans being modelled in a settlement.
