@@ -15,7 +15,7 @@ The package can be installed from GitHub using the `remotes` library (this metho
 
 ```R
 library('remotes')
-install_github('pahanc/malariasimulation_import_mosq')
+install_github('pahanc/malariasimulation_GD_2024')
 ```
 
 The following R packages are required:
