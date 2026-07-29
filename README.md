@@ -24,6 +24,8 @@ The following R packages are required:
 - `malariaEquilibrium` v1.0.1
 - `malariasimulation` v1.6.0
 
+Install time on a normal desktop computer is approximately 5 minutes.
+
 ## Usage
 
 To run this modified version of `malariasimulation`, files containing site-specific model parameters are required. These files are located in the GitHub repository [inputs-for-malariasimulation_GD_2024](https://github.com/pahanc/inputs-for-malariasimulation_GD_2024). Input files generated from the mosquito metapopulation model developed in Hancock, P.A., North, A. et al. are also required. Example input files are in the subdirectory **Mosquito timeseries**.
@@ -109,6 +111,7 @@ The output daily malaria prevalence values are given by:
 ```R
 plot(output, type = 'l', xlab = "Day", ylab = "Prevalence")
 ```
+Run time on a normal desktop computer is approximately 3 minutes.
 
 ## License
 
