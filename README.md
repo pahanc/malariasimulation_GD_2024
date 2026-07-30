@@ -113,6 +113,16 @@ plot(output, type = 'l', xlab = "Day", ylab = "Prevalence")
 ```
 Run time on a normal desktop computer is approximately 3 minutes.
 
+#### Running all simulations
+
+To run all the simulations for each cluster and each parameter set, the script 'run_site_batch_2026.R' can be used (in [inputs-for-malariasimulation_GD_2024](https://github.com/pahanc/inputs-for-malariasimulation_GD_2024)) For each cluster (village) the script requires the following inputs:
+
+- The initial number of mosquitos in the cluster (on day 0 of the simulation). These values are provided in the folder 'Mosquitos per cluster'. For each trial design (A, B, C) and each parameter set, there is one file containing a vector of the number of mosquitos in each cluster, stored as an R data set. The file naming convention is 'mosq_per_vill_[index]_[trial]_strat_1km' where index refers to the gene drive fitness and mosquito dispersal parameter values (see above) and trial refers to the trial design (24: A, 12: B, 12b: C).
+
+- The number of humans in each cluster. These values are provided in the folder 'Humans per cluster'. For each trial design (A, B, C) and each parameter set, there is one file containing a vector of the number of humans in each cluster, stored as an R data set. The file naming convention is 'Vill pop sizes Houet strat [trial] [index] 1km.
+
+- The mosquito suppression time series for each cluster - a vector of values ranging from 0-1 indicating the level of suppression acting on the mosquito population. These can be generated using the mosquito metapopulation model (in [CRT] (https://github.com/AceRNorth/CRT)). Examples are provided in the folder 'Mosquito timeseries'.
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
