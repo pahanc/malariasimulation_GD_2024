@@ -230,7 +230,7 @@ get_parameters <- function(overrides = list(), supp_gam=supp_gam,
   
   #An. gambiae/coluzzii
   
-  supp_filename_gamb<-paste("W:\\for_hpc/Seas and supp species specific/With funestus suppression/Houet suppression files Apr26/Strat/1km/",supp_gam_filename,sep="")
+  supp_filename_gamb<-paste("inputs-for-malariasimulation_GD_2024/input files/Mosquito timeseries/",supp_gam_filename,sep="")
   mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))
   dimnames(mosq_suppression_gamb)<-NULL
   if (supp_gam){
@@ -260,7 +260,7 @@ get_parameters <- function(overrides = list(), supp_gam=supp_gam,
   #Read in files containing time series of daily relative adult mosquito emergence values:
   
   #An. gambiae/coluzzii
-  seas_filename_gamb<-paste("W:\\for_hpc/Seas and supp species specific/With funestus suppression/Houet emergence files/",emerge_gam_filename,sep = "")
+  seas_filename_gamb<-paste("inputs-for-malariasimulation_GD_2024/input files/Mosquito timeseries/",emerge_gam_filename,sep = "")
   mosq_seasonality_gamb<-unlist(read.csv(seas_filename_gamb,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality_gamb)<-NULL
   mosq_seasonality_gamb<-as.vector(mosq_seasonality_gamb)
