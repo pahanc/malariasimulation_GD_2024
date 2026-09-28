@@ -332,7 +332,65 @@
 #' rates; default = TRUE
 #'
 #' @export
-get_parameters <- function(overrides = list(), parasite = "falciparum") {
+get_parameters <- function(overrides = list(), parasite = "falciparum", supp_gam=supp_gam, 
+                           supp_gam_filename=supp_gam_filename,emerge_gam_filename=emerge_gam_filename) {
+  #Read in files containing time series of daily vector population suppression values:
+  
+  #An. gambiae/coluzzii
+  
+  supp_filename_gamb<-paste("inputs-for-malariasimulation_GD_2024/input files/Mosquito timeseries/",supp_gam_filename,sep="")
+  mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_gamb)<-NULL
+  if (supp_gam){
+    mosq_suppression_gamb<-as.vector(mosq_suppression_gamb)
+  } else{
+    #No Drive:
+    mosq_suppression_gamb<-rep(1,length(mosq_suppression_gamb))
+  }
+  
+  #An. arabiensis
+  
+  mosq_suppression_arab<-rep(1,length(mosq_suppression_gamb))
+  
+  #An. funestus
+  
+  mosq_suppression_fun<-rep(1,length(mosq_suppression_gamb))
+  
+  #Non-target vector species
+  mosq_suppression_new<-rep(1,length(mosq_suppression_gamb))
+  
+  mosq_supp_lst<-list()
+  mosq_supp_lst[[1]]<-mosq_suppression_gamb
+  mosq_supp_lst[[2]]<-mosq_suppression_arab
+  mosq_supp_lst[[3]]<-mosq_suppression_fun
+  mosq_supp_lst[[4]]<-mosq_suppression_new
+  
+  #Read in files containing time series of daily relative adult mosquito emergence values:
+  
+  #An. gambiae/coluzzii
+  seas_filename_gamb<-paste("inputs-for-malariasimulation_GD_2024/input files/Mosquito timeseries/",emerge_gam_filename,sep = "")
+  mosq_seasonality_gamb<-unlist(read.csv(seas_filename_gamb,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_gamb)<-NULL
+  mosq_seasonality_gamb<-as.vector(mosq_seasonality_gamb)
+  
+  #An. arabiensis
+  mosq_seasonality_arab<-as.vector(mosq_seasonality_gamb)
+  
+  #An. funestus
+  mosq_seasonality_fun<-as.vector(mosq_seasonality_gamb)
+  
+  #Non-target vector species
+  mosq_seasonality_new<-as.vector(mosq_seasonality_gamb)
+  
+ 
+  
+  mosq_seas_lst<-list()
+  mosq_seas_lst[[1]]<-mosq_seasonality_gamb
+  mosq_seas_lst[[2]]<-mosq_seasonality_arab
+  mosq_seas_lst[[3]]<-mosq_seasonality_fun
+  mosq_seas_lst[[4]]<-mosq_seasonality_new
+  
+  
   
   if(!parasite %in% c("falciparum","vivax")){stop("parasite must be 'falciparum' or 'vivax'")}
   
@@ -354,6 +412,9 @@ get_parameters <- function(overrides = list(), parasite = "falciparum") {
     list(
       # parasite
       parasite = parasite,
+      # gene drive: daily suppression and relative emergence per species
+      mosq_suppression = mosq_supp_lst,
+      mosq_seasonality = mosq_seas_lst,
       # initial state proportions
       s_proportion = 0.420433246,
       d_proportion = 0.007215064,
@@ -373,11 +434,11 @@ get_parameters <- function(overrides = list(), parasite = "falciparum") {
       # mosquito fixed state transitions (inc. mortality)
       del   = 6.64,
       dl    = 3.72,
-      dpl   = .643,
+      dpl   = 1,
       me    = .0338,
       ml    = .0348,
-      mup   = .249,
-      mum   = .132,
+      mup   = 0,
+      mum   = .125,
       # species-specific vector biology (default is An. gambiae s.s)
       species             = 'gamb',
       species_proportions = 1,

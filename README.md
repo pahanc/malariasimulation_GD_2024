@@ -1,94 +1,128 @@
 [![R build status](https://github.com/mrc-ide/malariasimulation/workflows/R-CMD-check/badge.svg)](https://github.com/mrc-ide/malariasimulation/actions)
 [![codecov](https://codecov.io/github/mrc-ide/malariasimulation/branch/master/graphs/badge.svg)](https://codecov.io/github/mrc-ide/malariasimulation)
 
-# malariasimulation <img src="man/figures/malariasimulation.png" align="right" width=30% height=30% />
+# malariasimulation
 
-Imperial College London's next malaria simulation. The main goals are make an
-extensible, maintainable and fast simulation to evaluate and report on malaria
-intervention strategies.
+This is a modified version of Imperial College London's `malariasimulation` model that imports a time series of the daily relative emergence of adult females generated from a separate mosquito metapopulation model, as described in Hancock, P.A., North, A. et al. The modifications were made to `malariasimulation` version 1.6.0, available [here](https://github.com/mrc-ide/malariasimulation/releases/tag/v1.6.0).
 
-The model is defined in this package, whereas the simulation is executed using
-the [individual](https://github.com/mrc-ide/individual) package.
-<br><br><br>
+The model is defined in this package, whereas the simulation is executed using the [individual](https://github.com/mrc-ide/individual) package.
 
 ## Installation
 
-Please note, malariasimulation is only compatible with R >= 4.0.0
+> **Note:** `malariasimulation` is only compatible with R >= 4.0.0
 
-You can install the binary package on Windows and Mac using the following
-command:
-
-```R
-# Enable this universe
-options(repos = c(
-    mrcide = 'https://mrc-ide.r-universe.dev',
-    CRAN = 'https://cloud.r-project.org'))
-
-# Install some packages
-install.packages('malariasimulation')
-```
-
-The package can also be installed from github using the "remotes" library. Note, this
-method requires [RBuildTools](https://cran.r-project.org/bin/windows/Rtools/)
+The package can be installed from GitHub using the `remotes` library (this method requires RTools/RBuildTools):
 
 ```R
 library('remotes')
-install_github('mrc-ide/malariasimulation')
+install_github('pahanc/malariasimulation_GD_2024')
 ```
 
-For development it is most convenient to run the code from source. You can
-install the dependencies in RStudio by opening the project and selecting "Build" >
-"Install and Restart"
+The following R packages are required:
 
-Command line users can execute:
+- `individual` v0.1.17
+- `malariaEquilibrium` v1.0.1
+- `malariasimulation` v1.6.0
 
-```R
-library('remotes')
-install_deps('.', dependencies = TRUE)
-```
-
-Docker users can achieve the same with one line
-
-```bash
-docker build . -f docker/Dockerfile.dev -t [your image name]
-```
+Install time on a normal desktop computer is approximately 5 minutes.
 
 ## Usage
 
-To run the malaria simulation with the default parameters for 100 timesteps, you
-can execute the following code:
+To run this modified version of `malariasimulation`, files containing site-specific model parameters are required. These files are located in the GitHub repository [inputs-for-malariasimulation_GD_2024](https://github.com/pahanc/inputs-for-malariasimulation_GD_2024). Input files generated from the mosquito metapopulation model developed in Hancock, P.A., North, A. et al. are also required. Example input files are in the subdirectory **Mosquito timeseries**.
+
+### File naming convention
+
+Subfolder `A` refers to trial Design A. Within folder `A` there are 63 subfolders containing mosquito suppression time series for 9 values of the fitness parameter ω and 7 values of the dispersal parameter ρ.
+
+The **first digit** of the folder name denotes the fitness parameter ω:
+
+| Digit | ω value |
+|:-----:|:-------:|
+| 1 | 1.0 |
+| 2 | 0.9 |
+| 3 | 0.8 |
+| 4 | 0.7 |
+| 5 | 0.6 |
+| 6 | 0.5 |
+| 7 | 0.4 |
+| 8 | 0.3 |
+| 9 | 0.2 |
+
+The **second digit** of the folder name denotes the dispersal rate ρ:
+
+| Digit | ρ value |
+|:-----:|:-------:|
+| 1 | 0.001 |
+| 2 | 0.00224 |
+| 3 | 0.005 |
+| 4 | 0.0112 |
+| 5 | 0.025 |
+| 6 | 0.056 |
+| 7 | 0.125 |
+
+For example, folder `5200` contains mosquito suppression time series for ω = 0.6 and ρ = 0.00224.
+
+### Running the model
+
+To run the modified `malariasimulation` model with default parameters, use the function `run_site` (in `run_site_2026.R`, from [inputs-for-malariasimulation_GD_2024](https://github.com/pahanc/inputs-for-malariasimulation_GD_2024)):
 
 ```R
-library('malariasimulation')
-
-output <- run_simulation(100)
+output <- run_site(
+  total_M = total_M,
+  human_population = human_population,
+  supp_gam = supp_gam,
+  supp_gam_filename = supp_gam_filename,
+  emerge_gam_filename = emerge_gam_filename,
+  ntsp_prop = ntsp_prop
+)
 ```
 
-Please see [vignettes](https://mrc-ide.github.io/malariasimulation/articles/Model.html) for more detailed use.
+where:
 
-## Code organisation
+- **`total_M`** — estimated maximum abundance of the total vector population (including all species) over the simulation period (see Hancock, P.A., North, A. et al.).
+- **`human_population`** — number of humans being modelled in a settlement.
+- **`supp_gam`** — boolean indicating whether gene drive releases in *An. gambiae* + *An. coluzzii* occur.
+- **`supp_gam_filename`** — path to the file containing the mosquito suppression time series predicted using the spatial metapopulation model (note: the root directory will need to be changed in `parameters.R`).
+- **`emerge_gam_filename`** — path to the file containing the time series of normalised daily mosquito emergence (note: the root directory will need to be changed in `parameters.R`).
+- **`ntsp_prop`** — proportion of the mosquito population comprised of vector species that are not gene drive targets.
 
-*model.R* - is the entry point for the model. It creates the different
-components and passes them to the `individual` package for simulation.
+#### Example
 
-*variables.R* - contains the specific variables we track for each individual.
+```R
+total_M <- 100000
+human_population <- 1500
+supp_gam <- TRUE
+supp_gam_filename <- "inputs-for-malariasimulation_GD_2024/input files/Mosquito timeseries/A/1100/mosq_supp_gamb_1100_1.csv"
+emerge_gam_filename <- "inputs-for-malariasimulation_GD_2024/input files/Mosquito timeseries/Emerge_gam_Feb26.csv"
+ntsp_prop <- 0
 
-*processes.R* - defines the changes in individuals over time. It collects
-process functions from "infection.R", "mosquito_emergence.R" and "mortality.R"
+output <- run_site(
+  total_M = total_M,
+  human_population = human_population,
+  supp_gam = supp_gam,
+  supp_gam_filename = supp_gam_filename,
+  emerge_gam_filename = emerge_gam_filename,
+  ntsp_prop = ntsp_prop
+)
+```
 
-*tests* - are divided into unit and integration tests. Integration tests are
-strongly recommended for large process functions and unit tests for model
-calculations.
+The output daily malaria prevalence values are given by:
 
-## Contributing
+```R
+plot(output, type = 'l', xlab = "Day", ylab = "Prevalence")
+```
+Run time on a normal desktop computer is approximately 3 minutes.
 
-Pull requests are welcome. For major changes, please open an issue first to
-discuss what you would like to change.
+#### Running all simulations
 
-Please make sure to update tests and documentation as appropriate.
+To run all the simulations for each cluster and each parameter set, the script 'run_site_batch_2026.R' can be used (in [inputs-for-malariasimulation_GD_2024](https://github.com/pahanc/inputs-for-malariasimulation_GD_2024)) For each cluster (village) the script requires the following inputs:
 
-Code reviews will be carried out in-line with RESIDE-IC's [review
-process](https://reside-ic.github.io/articles/pull-requests/)
+- The initial number of mosquitos in the cluster (on day 0 of the simulation). These values are provided in the folder 'Mosquitos per cluster'. For each trial design (A, B, C) and each parameter set, there is one file containing a vector of the number of mosquitos in each cluster, stored as an R data set. The file naming convention is 'mosq_per_vill_[index]_[trial]_strat_1km' where index refers to the gene drive fitness and mosquito dispersal parameter values (see above) and trial refers to the trial design (24: A, 12: B, 12b: C).
+
+- The number of humans in each cluster. These values are provided in the folder 'Humans per cluster'. For each trial design (A, B, C) and each parameter set, there is one file containing a vector of the number of humans in each cluster, stored as an R data set. The file naming convention is 'Vill pop sizes Houet strat [trial] [index] 1km.
+
+- The mosquito suppression time series for each cluster - a vector of values ranging from 0-1 indicating the level of suppression acting on the mosquito population. These can be generated using the mosquito metapopulation model (in [CRT] (https://github.com/AceRNorth/CRT)). Examples are provided in the folder 'Mosquito timeseries'.
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)

@@ -12,9 +12,11 @@ AdultMosquitoModel::AdultMosquitoModel(
     AquaticMosquitoModel growth_model,
     double mu,
     double tau,
+    Rcpp::XPtr<Timeseries> supp_tseries,
+    Rcpp::XPtr<Timeseries> emerge_tseries,
     double incubating,
     double foim
-    ) : growth_model(growth_model), mu(mu), tau(tau), foim(foim)
+    ) : growth_model(growth_model), mu(mu), tau(tau),supp_tseries(supp_tseries), emerge_tseries(emerge_tseries), foim(foim)
 {
     for (auto i = 0u; i < tau; ++i) {
         lagged_incubating.push_back(incubating);
@@ -36,9 +38,12 @@ integration_function_t create_eqs(AdultMosquitoModel& model) {
 
         //run the adult ode
         auto incubation_survival = exp(-model.mu * model.tau);
+        
+        int t_day;
+        t_day = t;
 
         dxdt[get_idx(AdultState::S)] =
-            .5 * x[get_idx(AquaticState::P)] / model.growth_model.dp //growth to adult female
+            .5 * model.supp_tseries->at(t,true) * model.emerge_tseries->at(t,true) *x[get_idx(AquaticState::P)]  / model.growth_model.dp //growth to adult female
             - x[get_idx(AdultState::S)] * model.foim //infections
             - x[get_idx(AdultState::S)] * model.mu; //deaths   
 
@@ -57,6 +62,8 @@ Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(
     Rcpp::XPtr<AquaticMosquitoModel> growth_model,
     double mu,
     double tau,
+    Rcpp::XPtr<Timeseries> supp_tseries,
+    Rcpp::XPtr<Timeseries> emerge_tseries,
     double susceptible,
     double foim
     ) {
@@ -64,6 +71,8 @@ Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(
         *growth_model,
         mu,
         tau,
+        supp_tseries,
+        emerge_tseries,
         susceptible,
         foim
     );

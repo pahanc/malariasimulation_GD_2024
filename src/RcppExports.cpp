@@ -12,17 +12,19 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // create_adult_mosquito_model
-Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(Rcpp::XPtr<AquaticMosquitoModel> growth_model, double mu, double tau, double susceptible, double foim);
-RcppExport SEXP _malariasimulation_create_adult_mosquito_model(SEXP growth_modelSEXP, SEXP muSEXP, SEXP tauSEXP, SEXP susceptibleSEXP, SEXP foimSEXP) {
+Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(Rcpp::XPtr<AquaticMosquitoModel> growth_model, double mu, double tau, Rcpp::XPtr<Timeseries> supp_tseries, Rcpp::XPtr<Timeseries> emerge_tseries, double susceptible, double foim);
+RcppExport SEXP _malariasimulation_create_adult_mosquito_model(SEXP growth_modelSEXP, SEXP muSEXP, SEXP tauSEXP, SEXP supp_tseriesSEXP, SEXP emerge_tseriesSEXP, SEXP susceptibleSEXP, SEXP foimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::XPtr<AquaticMosquitoModel> >::type growth_model(growth_modelSEXP);
     Rcpp::traits::input_parameter< double >::type mu(muSEXP);
     Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
+    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type supp_tseries(supp_tseriesSEXP);
+    Rcpp::traits::input_parameter< Rcpp::XPtr<Timeseries> >::type emerge_tseries(emerge_tseriesSEXP);
     Rcpp::traits::input_parameter< double >::type susceptible(susceptibleSEXP);
     Rcpp::traits::input_parameter< double >::type foim(foimSEXP);
-    rcpp_result_gen = Rcpp::wrap(create_adult_mosquito_model(growth_model, mu, tau, susceptible, foim));
+    rcpp_result_gen = Rcpp::wrap(create_adult_mosquito_model(growth_model, mu, tau, supp_tseries, emerge_tseries, susceptible, foim));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -351,7 +353,7 @@ END_RCPP
 RcppExport SEXP run_testthat_tests(void);
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_malariasimulation_create_adult_mosquito_model", (DL_FUNC) &_malariasimulation_create_adult_mosquito_model, 5},
+    {"_malariasimulation_create_adult_mosquito_model", (DL_FUNC) &_malariasimulation_create_adult_mosquito_model, 7},
     {"_malariasimulation_adult_mosquito_model_update", (DL_FUNC) &_malariasimulation_adult_mosquito_model_update, 5},
     {"_malariasimulation_adult_mosquito_model_save_state", (DL_FUNC) &_malariasimulation_adult_mosquito_model_save_state, 1},
     {"_malariasimulation_adult_mosquito_model_restore_state", (DL_FUNC) &_malariasimulation_adult_mosquito_model_restore_state, 2},

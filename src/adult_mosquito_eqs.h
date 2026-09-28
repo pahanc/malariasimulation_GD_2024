@@ -31,8 +31,10 @@ struct AdultMosquitoModel {
     std::deque<double> lagged_incubating; //last tau values for incubating mosquitos
     double mu; //death rate for adult female mosquitoes
     const double tau; //extrinsic incubation period
+    Rcpp::XPtr<Timeseries> supp_tseries;
+    Rcpp::XPtr<Timeseries> emerge_tseries;
     double foim; //force of infection towards mosquitoes
-    AdultMosquitoModel(AquaticMosquitoModel, double, double, double, double);
+    AdultMosquitoModel(AquaticMosquitoModel, double, double, Rcpp::XPtr<Timeseries> ,Rcpp::XPtr<Timeseries> ,double, double);
 };
 
 // create a system of equations for the solver
